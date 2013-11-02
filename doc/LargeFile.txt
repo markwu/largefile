@@ -1,4 +1,4 @@
-*LargeFile.txt*	Editing Large Files Quickly			Apr 24, 2013
+*LargeFile.txt*	Editing Large Files Quickly			Oct 31, 2013
 
 Author:  Charles E. Campbell  <NdrOchip@ScampbellPfamily.AbizM>
 	  (remove NOSPAM from Campbell's email first)
@@ -77,6 +77,8 @@ about loading a large file:
 			  common "b:LF_" prefix
 	Apr 24, 2013	* (Kris Malfettone) suggested that |'bk'| and |'wk'|
 			  options should also be suppressed by LargeFile.
+	Oct 31, 2013	* persistent undo used to localize turning
+			  |undolevels| off to LargeFiles
   4 :	Jan 03, 2008	* made LargeFile.vim :AutoInstall:-able by getscript
 	Apr 11, 2008	* (Daniel Shahaf suggested) that :Large! do the large-file
 			  handling irregardless of file size.  Implemented.
