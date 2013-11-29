@@ -1,7 +1,7 @@
 " LargeFile: Sets up an autocmd to make editing large files work with celerity
 "   Author:		Charles E. Campbell
-"   Date:		Oct 31, 2013
-"   Version:	5k	ASTRO-ONLY
+"   Date:		Nov 25, 2013
+"   Version:	5
 "   Copyright:	see :help LargeFile-copyright
 " GetLatestVimScripts: 1506 1 :AutoInstall: LargeFile.vim
 "DechoRemOn
@@ -11,7 +11,7 @@
 if exists("g:loaded_LargeFile") || &cp
  finish
 endif
-let g:loaded_LargeFile = "v5k"
+let g:loaded_LargeFile = "v5"
 let s:keepcpo          = &cpo
 set cpo&vim
 
@@ -52,13 +52,23 @@ fun! s:LargeFile(force,fname)
    let b:LF_fdmkeep     = &l:fdm
    let b:LF_fenkeep     = &l:fen
    let b:LF_swfkeep     = &l:swf
-   let b:LF_ulkeep      = &ul
+   if v:version > 704 || (v:version == 704 && has("patch073"))
+    let b:LF_ulkeep     = &l:ul
+   else
+    let b:LF_ulkeep     = &ul
+   endif
    let b:LF_wbkeep      = &l:wb
    set ei=FileType
-   setlocal noswf bh=unload fdm=manual nofen cpt-=wbuU nobk nowb
+   if v:version > 704 || (v:version == 704 && has("patch073"))
+	setlocal noswf bh=unload fdm=manual nofen cpt-=wbuU nobk nowb ul=-1
+   else
+    setlocal noswf bh=unload fdm=manual nofen cpt-=wbuU nobk nowb
+   endif
    augroup LargeFileAU
-    au LargeFile BufEnter  <buffer> call s:LargeFileEnter()
-    au LargeFile BufLeave  <buffer> call s:LargeFileLeave()
+    if v:version < 704 || (v:version == 704 && !has("patch073"))
+     au LargeFile BufEnter  <buffer> call s:LargeFileEnter()
+     au LargeFile BufLeave  <buffer> call s:LargeFileLeave()
+	endif
     au LargeFile BufUnload <buffer> augroup LargeFileAU|au! * <buffer>|augroup END
    augroup END
    let b:LargeFile_mode = 1
@@ -151,7 +161,6 @@ endfun
 "                   but one has changed windows/tabs to edit a different file.
 fun! s:LargeFileLeave()
 "  call Dfunc("s:LargeFileLeave() buf#".bufnr("%")."<".bufname("%").">")
-
   " restore undo trees
   if has("persistent_undo")
 "   call Decho("(s:LargeFileLeave) handling persistent undo: restoring undo history")
