@@ -1,7 +1,7 @@
 " LargeFile: Sets up an autocmd to make editing large files work with celerity
 "   Author:		Charles E. Campbell
-"   Date:		Nov 25, 2013
-"   Version:	5
+"   Date:		Mar 16, 2014
+"   Version:	6	ASTRO-ONLY
 "   Copyright:	see :help LargeFile-copyright
 " GetLatestVimScripts: 1506 1 :AutoInstall: LargeFile.vim
 "DechoRemOn
@@ -11,7 +11,7 @@
 if exists("g:loaded_LargeFile") || &cp
  finish
 endif
-let g:loaded_LargeFile = "v5"
+let g:loaded_LargeFile = "v6"
 let s:keepcpo          = &cpo
 set cpo&vim
 
@@ -59,7 +59,7 @@ fun! s:LargeFile(force,fname)
    endif
    let b:LF_wbkeep      = &l:wb
    set ei=FileType
-   if v:version > 704 || (v:version == 704 && has("patch073"))
+   if v:version < 704 || (v:version == 704 && has("patch073"))
 	setlocal noswf bh=unload fdm=manual nofen cpt-=wbuU nobk nowb ul=-1
    else
     setlocal noswf bh=unload fdm=manual nofen cpt-=wbuU nobk nowb

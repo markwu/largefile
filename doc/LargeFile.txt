@@ -78,7 +78,7 @@ about loading a large file:
 	Apr 24, 2013	* (Kris Malfettone) suggested that |'bk'| and |'wk'|
 			  options should also be suppressed by LargeFile.
 	Oct 31, 2013	* persistent undo used to localize turning
-			  |undolevels| off to LargeFiles
+			  |'undolevels'| off to LargeFiles
   4 :	Jan 03, 2008	* made LargeFile.vim :AutoInstall:-able by getscript
 	Apr 11, 2008	* (Daniel Shahaf suggested) that :Large! do the large-file
 			  handling irregardless of file size.  Implemented.
